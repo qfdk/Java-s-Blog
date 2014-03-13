@@ -3,18 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/tools.jsp</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/menu.jsp</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/entites/News.java</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/editor.jsp</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/admin.jsp</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/index.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/modele/AdminModele.java</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/tools.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/control/UserServlet.java</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/src/conf/persistence.xml</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/menu.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/web/java.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/control/AdminControle.java</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/include/editor.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/web/news.jsp</file>
-            <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/control/FronControle.java</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/admin.jsp</file>
+            <file>file:/Users/qfdk/NetBeansProjects/Blog/web/index.jsp</file>
             <file>file:/Users/qfdk/NetBeansProjects/Blog/src/java/modele/UserModele.java</file>
         </group>
     </open-files>

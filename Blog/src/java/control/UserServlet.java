@@ -18,8 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import modele.AdminModele;
 import modele.UserModele;
 
 /**
@@ -45,9 +43,6 @@ public class UserServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String actionString = request.getParameter("action");
         switch (actionString) {
-            case "login":
-                login(request, response);
-                break;
             case "editer":
                 //加载到admin里面
                 News neufNews = new News();
@@ -123,18 +118,7 @@ public class UserServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void login(HttpServletRequest request, HttpServletResponse response) {
-        AdminModele modeleAdmin = new AdminModele();
-        String login = request.getParameter("login");
-        String mdp = request.getParameter("mdp");
-        if (mdp == null || login == null) {
-            redirection(Config.PAGE_INDEX, request, response);
-        } else if (modeleAdmin.connextion(login, mdp)) {
-                redirection("admin.jsp", request, response);
-            } else {
-            redirection(Config.PAGE_INDEX, request, response);
-        }
-    }
+
 
     private void listerNews(HttpServletRequest request, HttpServletResponse response) {
         UserModele um = new UserModele();
@@ -151,7 +135,7 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("home", um.listerAllNews());
     }
 
-    private void redirection(String lien, HttpServletRequest request, HttpServletResponse response) {
+    protected void redirection(String lien, HttpServletRequest request, HttpServletResponse response) {
         try {
             request.getRequestDispatcher(lien).forward(request, response);
         } catch (ServletException ex) {

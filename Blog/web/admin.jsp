@@ -35,12 +35,6 @@
                 overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
             });
             $('#voiceBtn').hide();
-            // if ("onwebkitspeechchange"  in document.createElement("input")) {
-            //   var editorOffset = $('#editor').offset();
-            //   $('#voiceBtn').css('position','absolute').offset({top: editorOffset.top, left: editorOffset.left+$('#editor').innerWidth()-35});
-            // } else {
-            //   $('#voiceBtn').hide();
-            // }
         }
         ;
         initToolbarBootstrapBindings();

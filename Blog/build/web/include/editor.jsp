@@ -12,7 +12,7 @@ function loadVal(){
 }
 </script>
 
-<form method="POST" action="UserServlet?action=editer" name="form" onsubmit="loadVal();">
+<form method="POST" action="AdminControle?action=ajouter" name="form" onsubmit="loadVal();">
 <div class="mainContent">
     <div class="contentRight">	
       
