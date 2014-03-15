@@ -16,12 +16,10 @@ import javax.persistence.EntityTransaction;
  */
 public class AdminModele extends UserModele{
 
-    public Admin admin=null;
+    private Admin admin=null;
     
     public AdminModele()
     {
-    //    factory = Persistence.createEntityManagerFactory("BlogPU");
-  //      manager = factory.createEntityManager();
         super();
     }
     

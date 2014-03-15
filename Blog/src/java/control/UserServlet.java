@@ -6,6 +6,7 @@
 package control;
 
 import config.Config;
+import entites.Commentaire;
 import entites.News;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,32 +42,38 @@ public class UserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         PrintWriter out = response.getWriter();
-        String actionString = request.getParameter("action");
-        switch (actionString) {
-            case "editer":
-                //加载到admin里面
-                News neufNews = new News();
-                neufNews.setTitle(request.getParameter("title"));
-                neufNews.setTags(request.getParameter("tags"));
-                neufNews.setContient(request.getParameter("contient"));
-                neufNews.setDate(new Date(System.currentTimeMillis()));
+        String actionString = null;
+        try {
+            actionString = request.getParameter("action");
 
-                redirection(Config.PAGE_INDEX, request, response);
-                break;
-            case "listerNews":
-                listerNews(request, response);
-                redirection("news.jsp", request, response);
-                break;
-            case "listerJava":
-                listerJava(request, response);
-                redirection("java.jsp", request, response);
-                break;
-            case "home":
-                listerAll(request, response);
-                redirection("home.jsp", request, response);
-                break;
-            default:
-                redirection("index.jsp", request, response);
+            switch (actionString) {
+                case "listerNews":
+                    listerNews(request, response);
+                    redirection("news.jsp", request, response);
+                    break;
+                case "listerJava":
+                    listerJava(request, response);
+                    redirection("java.jsp", request, response);
+                    break;
+                case "home":
+                    listerAll(request, response);
+                    redirection("home.jsp", request, response);
+                    break;
+                case "details":
+                    detailsParIdNews(request, response);
+                    redirection("details.jsp", request, response);
+                    break;
+                case "ajouterCommentaire":
+                    ajouterCommentaireParIdNews(request, response);
+                    break;
+                case "rechercher":
+                    rechercher(request,response);
+                    break;
+                default:
+                    redirection("index.jsp", request, response);
+            }
+        } catch (Exception e) {
+            redirection("index.jsp", request, response);
         }
 
     }
@@ -118,8 +125,6 @@ public class UserServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
-
     private void listerNews(HttpServletRequest request, HttpServletResponse response) {
         UserModele um = new UserModele();
         request.setAttribute("news", um.listerParTags("News"));
@@ -135,6 +140,36 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("home", um.listerAllNews());
     }
 
+    private void detailsParIdNews(HttpServletRequest request, HttpServletResponse response) {
+        UserModele um = new UserModele();
+        Integer idNews = 0;
+        try {
+            idNews = Integer.parseInt(request.getParameter("IdNews"));
+        } catch (Exception e) {
+            redirection("index.jsp", request, response);
+        }
+        request.setAttribute("details", um.detailsNews(idNews));
+        request.setAttribute("commentaires", um.listerCommentairesByIdNews(idNews));
+    }
+
+    private void ajouterCommentaireParIdNews(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserModele um = new UserModele();
+        Commentaire commentaire = new Commentaire();
+        Integer idNews = 0;
+        String nomString = null;
+        String contenuString = null;
+        nomString = request.getParameter("nom");
+        contenuString = request.getParameter("contenu");
+        idNews = Integer.parseInt(request.getParameter("IdNews"));
+        commentaire.setNom(nomString);
+        commentaire.setContenu(contenuString);
+        commentaire.setIdNews(idNews);
+        commentaire.setDateCommentaire(new Date(System.currentTimeMillis()));
+        um.ajouterCommentaire(commentaire);
+        response.getWriter().append("ok");
+        //request.setAttribute("commentaires", um.listerCommentairesByIdNews(idNews));
+    }
+
     protected void redirection(String lien, HttpServletRequest request, HttpServletResponse response) {
         try {
             request.getRequestDispatcher(lien).forward(request, response);
@@ -144,4 +179,9 @@ public class UserServlet extends HttpServlet {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private void rechercher(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.getWriter().append(request.getParameter("motcle"));
+    }
+
 }

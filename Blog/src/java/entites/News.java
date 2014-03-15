@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "News.findAll", query = "SELECT n FROM News n"),
     @NamedQuery(name = "News.findByIdNews", query = "SELECT n FROM News n WHERE n.idNews = :idNews"),
-    @NamedQuery(name = "News.findByTitle", query = "SELECT n FROM News n WHERE n.title = :title"),
+    @NamedQuery(name = "News.findByTitre", query = "SELECT n FROM News n WHERE n.titre = :titre"),
     @NamedQuery(name = "News.findByTags", query = "SELECT n FROM News n WHERE n.tags = :tags"),
     @NamedQuery(name = "News.findByScore", query = "SELECT n FROM News n WHERE n.score = :score"),
     @NamedQuery(name = "News.findByDate", query = "SELECT n FROM News n WHERE n.date = :date")})
@@ -45,15 +45,15 @@ public class News implements Serializable {
     @Column(name = "idNews")
     private Integer idNews;
     @Size(max = 50)
-    @Column(name = "title")
-    private String title;
+    @Column(name = "titre")
+    private String titre;
     @Size(max = 50)
     @Column(name = "tags")
     private String tags;
     @Lob
     @Size(max = 2147483647)
-    @Column(name = "contient")
-    private String contient;
+    @Column(name = "contenu")
+    private String contenu;
     @Column(name = "score")
     private Integer score;
     @Column(name = "date")
@@ -75,12 +75,12 @@ public class News implements Serializable {
         this.idNews = idNews;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitre() {
+        return titre;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public String getTags() {
@@ -91,12 +91,12 @@ public class News implements Serializable {
         this.tags = tags;
     }
 
-    public String getContient() {
-        return contient;
+    public String getContenu() {
+        return contenu;
     }
 
-    public void setContient(String contient) {
-        this.contient = contient;
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
     }
 
     public Integer getScore() {

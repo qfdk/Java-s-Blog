@@ -38,11 +38,18 @@
     <li><a href="UserServlet?action=listerJava">Java</a></li>
         <%
             }   } catch (Exception e) {
-        response.sendRedirect("UserServlet?action=home");
+                %>
+   <li><a href="UserServlet?action=home">404,Cette page ne trouve pas,cliquez ici :P</a></li>
+    <%
     }
         %>
 
 <!--    <li><a href="UserServlet?action=listerNews">News</a></li>
     <li><a href="UserServlet?action=listerJava">Java</a></li>-->
     <li><a href="UserServlet?action=aubout">About</a></li>
+    
 </ul>
+<form class="navbar-form pull-left" method="POST" action="UserServlet?action=rechercher">
+  <input type="text" name="motcle" class="span2">
+  <input type="submit" class="btn" value="Recherche" />
+</form>

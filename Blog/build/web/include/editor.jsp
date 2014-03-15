@@ -14,7 +14,7 @@ function loadVal(){
 
 <form method="POST" action="AdminControle?action=ajouter" name="form" onsubmit="loadVal();">
 <div class="mainContent">
-    <div class="contentRight">	
+    <div class="content">	
       
         <div class="alert alert-info">
             Title: <input type="text" placeholder="Title" name="title"> Tags: 

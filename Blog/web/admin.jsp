@@ -4,7 +4,6 @@
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
 <%@include  file="include/editor.jsp" %>
 
-<script src="js/jquery.min.js"></script>
 <script src="js/jquery.hotkeys.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-wysiwyg.js"></script>

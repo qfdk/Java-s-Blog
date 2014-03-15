@@ -7,6 +7,7 @@
         <meta charset="utf-8" />
         <link href="./css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="./style.css" type="text/css" />
+        <script src="js/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body class="body">

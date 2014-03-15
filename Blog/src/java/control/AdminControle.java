@@ -51,6 +51,7 @@ public class AdminControle extends UserServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ClassNotFoundException, SQLException {
         PrintWriter out = response.getWriter();
+        try{
         String actionString = request.getParameter("action");
         switch (actionString) {
             case "login":
@@ -63,6 +64,9 @@ public class AdminControle extends UserServlet {
                 break;
             default:
                 response.sendRedirect("index.jsp");
+        }}catch(Exception e)
+        {
+            response.sendRedirect("index.jsp");
         }
     }
 
@@ -73,7 +77,8 @@ public class AdminControle extends UserServlet {
         if (mdp == null || login == null) {
             redirection(Config.PAGE_INDEX, request, response);
         } else if (modeleAdmin.connextion(login, mdp)) {
-            redirection(Config.PAGE_ADMIN, request, response);
+            request.setAttribute("admin", modeleAdmin.getAdmin());
+            redirection(Config.PAGE_INDEX, request, response);
         } else {
             redirection(Config.PAGE_INDEX, request, response);
         }
@@ -82,9 +87,9 @@ public class AdminControle extends UserServlet {
     private void ajouterNews(HttpServletRequest request, HttpServletResponse response) {
         AdminModele modeleAdmin = new AdminModele();
         News neufNews = new News();
-        neufNews.setTitle(request.getParameter("title"));
+        neufNews.setTitre(request.getParameter("title"));
         neufNews.setTags(request.getParameter("tags"));
-        neufNews.setContient(request.getParameter("contient"));
+        neufNews.setContenu(request.getParameter("contient"));
         neufNews.setDate(new Date(System.currentTimeMillis()));
         modeleAdmin.ajouterNews(neufNews);
     }

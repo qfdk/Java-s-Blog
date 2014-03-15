@@ -5,9 +5,8 @@
  */
 package modele;
 
-import entites.Admin;
+import entites.Commentaire;
 import entites.News;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,18 +30,43 @@ public class UserModele {
     public List<News> listerAllNews() {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        List<News> arrList=manager.createNamedQuery("News.findAll").getResultList();
+        List<News> arrList = manager.createNamedQuery("News.findAll").getResultList();
         tx.commit();
-        return  arrList;
+        return arrList;
     }
-    
-    public List<News> listerParTags(String tags)
-    {
+
+    public List<News> listerParTags(String tags) {
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        List<News> arrList=manager.createNamedQuery("News.findByTags")
+        List<News> arrList = manager.createNamedQuery("News.findByTags")
                 .setParameter("tags", tags).getResultList();
         tx.commit();
-        return  arrList;
+        return arrList;
+    }
+
+    public News detailsNews(Integer idNewsInteger) {
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        News news = (News) manager.createNamedQuery("News.findByIdNews")
+                .setParameter("idNews", idNewsInteger).getSingleResult();
+        tx.commit();
+        return news;
+    }
+
+    public List<Commentaire> listerCommentairesByIdNews(Integer idNews) {
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        List<Commentaire> commentaires = manager.createNamedQuery("Commentaire.findByIdNews")
+                .setParameter("idNews", idNews)
+                .getResultList();
+        tx.commit();
+        return commentaires;
+    }
+
+    public void ajouterCommentaire(Commentaire commentaire) {
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        manager.persist(commentaire);
+        tx.commit();
     }
 }

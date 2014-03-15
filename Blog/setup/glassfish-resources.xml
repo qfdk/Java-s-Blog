@@ -7,9 +7,8 @@
         <property name="databaseName" value="qfdk"/>
         <property name="User" value="root"/>
         <property name="Password" value=""/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/qfdk?characterEncoding=UTF-8"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/qfdk?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="News" object-type="user" pool-name="mysql_qfdk_rootPool"/>
     <jdbc-resource enabled="true" jndi-name="Blog" object-type="user" pool-name="mysql_qfdk_rootPool"/>
 </resources>
