@@ -56,8 +56,8 @@ a img {
 }
 
 a:link, a:visited {
-	color: #3F8ECF;
-	padding: 0 1px;
+	/* color: #3F8ECF; */
+	/* padding: 0 1px; */
 	text-decoration: none;
 }
 

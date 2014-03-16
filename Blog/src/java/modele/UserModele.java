@@ -69,4 +69,14 @@ public class UserModele {
         manager.persist(commentaire);
         tx.commit();
     }
+    
+    public List<News> recherNews(String mot)
+    {
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        List<News> newses = manager.createNamedQuery("News.findByKey")
+                .setParameter("key", "%"+mot+"%").getResultList();
+        tx.commit();
+        return newses;
+    }
 }

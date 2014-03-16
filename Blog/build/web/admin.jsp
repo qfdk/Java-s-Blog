@@ -1,45 +1,48 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include  file="include/header.jsp" %>
-<link href="css/editor.css" rel="stylesheet">
-<link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-<%@include  file="include/editor.jsp" %>
+<%-- 
+    Document   : news
+    Created on : 2014-3-6, 20:16:04
+    Author     : qfdk
+--%>
 
-<script src="js/jquery.hotkeys.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-wysiwyg.js"></script>
-<script>
-    $(function() {
-        function initToolbarBootstrapBindings() {
-            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
-                'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                'Times New Roman', 'Verdana'],
-                    fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-            $.each(fonts, function(idx, fontName) {
-                fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
-            });
-            $('a[title]').tooltip({container: 'body'});
-            $('.dropdown-menu input').click(function() {
-                return false;
-            })
-                    .change(function() {
-                        $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');
-                    })
-                    .keydown('esc', function() {
-                        this.value = '';
-                        $(this).change();
-                    });
+<%@page import="java.util.List"%>
+<%@page import="entites.News"%>
+<%@include file="/include/header.jsp" %>
+<div class="content">
+    <article class="topcontent">	
+        <table class="table table-condensed">
+            <thead>
+            <th>Title</th>
+            <th>Date</th>
+            <th></th>
+            <th><a class="btn btn-danger" href="./formulaire.jsp?action=home">Nouveu</a></th>
+            </thead>
+            <%
+                List<News> arrayList = (List<News>) request.getAttribute("home");
+                for (News n : arrayList) {
+            %>
+            <tr>
+                <td>
+                    <a href="UserServlet?action=details&IdNews=<%=n.getIdNews()%>" rel="bookmark" title="Permalink to this POST TITLE">
+                        <b><%=n.getTitre()%></b></a>
+                </td>
+                <td><%=n.getDate()%></td>
+                <td></td>
+                <td>              
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Action<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="UserServlet?action=details&IdNews=<%=n.getIdNews()%>">Lire</a></li>
+                            <li><a href="AdminControle?action=affichierNews&IdNews=<%=n.getIdNews()%>">Modifier</a></li>
+                            <li><a href="AdminControle?action=supprimer&IdNews=<%=n.getIdNews()%>">Supprimer</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <%
+                }%>
+        </table>
+    </article>
+</div>
 
-            $('[data-role=magic-overlay]').each(function() {
-                var overlay = $(this), target = $(overlay.data('target'));
-                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-            });
-            $('#voiceBtn').hide();
-        }
-        ;
-        initToolbarBootstrapBindings();
-        $('#editor').wysiwyg();
-        window.prettyPrint && prettyPrint();
-    });
-</script>
-
-<%@include  file="include/footer.jsp" %>
+<%@include  file="/include/tools.jsp" %>
+<%@include  file="/include/footer.jsp" %>

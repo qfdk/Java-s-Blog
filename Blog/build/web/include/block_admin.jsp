@@ -7,11 +7,10 @@
 <aside class="top-sidebar">
     <article>
         <%
-            try {
-                Admin admin = (Admin) request.getAttribute("admin");
-                if (admin != null) {
+            if (estAdmin) {
         %>
-        <h2><b>Wellcomme back,<%= admin.getLogin()%></b></h2>
+        <h2><b>Wellcomme back,</b><%= admin.getLogin()%></h2>
+        <a class="btn btn-danger" href="AdminControle?action=logout">logout</a>
         <%
         } else {
         %>  
@@ -24,9 +23,6 @@
             <button type="submit" class="btn btn-primary">Sign in</button>
         </form>         
         <%
-                }
-            } catch (Exception e) {
-
             }
         %>
 

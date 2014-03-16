@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "News.findByTitre", query = "SELECT n FROM News n WHERE n.titre = :titre"),
     @NamedQuery(name = "News.findByTags", query = "SELECT n FROM News n WHERE n.tags = :tags"),
     @NamedQuery(name = "News.findByScore", query = "SELECT n FROM News n WHERE n.score = :score"),
+    @NamedQuery(name = "News.findByKey", query = "SELECT n FROM News n WHERE n.titre LIKE :key"),
     @NamedQuery(name = "News.findByDate", query = "SELECT n FROM News n WHERE n.date = :date")})
 public class News implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -137,7 +138,7 @@ public class News implements Serializable {
 
     @Override
     public String toString() {
-        return "entites.News[ idNews=" + idNews + " ]";
+        return idNews+titre+contenu+tags;
     }
     
 }

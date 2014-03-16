@@ -5,9 +5,7 @@
  */
 package control;
 
-import config.Config;
 import entites.Commentaire;
-import entites.News;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -41,6 +39,7 @@ public class UserServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         String actionString = null;
         try {
@@ -68,6 +67,7 @@ public class UserServlet extends HttpServlet {
                     break;
                 case "rechercher":
                     rechercher(request,response);
+                    redirection("resultat.jsp", request, response);
                     break;
                 default:
                     redirection("index.jsp", request, response);
@@ -90,7 +90,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
+        //response.setCharacterEncoding("UTF-8");
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
@@ -111,7 +111,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
+        //response.setCharacterEncoding("UTF-8");
         doGet(request, response);
     }
 
@@ -166,7 +166,7 @@ public class UserServlet extends HttpServlet {
         commentaire.setIdNews(idNews);
         commentaire.setDateCommentaire(new Date(System.currentTimeMillis()));
         um.ajouterCommentaire(commentaire);
-        response.getWriter().append("ok");
+        response.getWriter().print("ok");
         //request.setAttribute("commentaires", um.listerCommentairesByIdNews(idNews));
     }
 
@@ -181,7 +181,8 @@ public class UserServlet extends HttpServlet {
     }
 
     private void rechercher(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().append(request.getParameter("motcle"));
+        UserModele um = new UserModele();
+        request.setAttribute("key", um.recherNews(String2Utf8.converterString(request.getParameter("motcle"))));
     }
 
 }

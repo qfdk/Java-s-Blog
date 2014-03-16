@@ -8,22 +8,25 @@ $(document).ready(function() {        //DOM的onload事件处理函数
         postdata();    //button被点击时执行postdata函数         
     });
 });
-
+function removeScript(s) {  
+    return s.replace(/<script.*?>.*?<\/script>/ig, '');  
+}  
 function postdata() {           //提交数据函数         
     $.ajax({//调用jquery的ajax方法        
         type: "POST", //设置ajax方法提交数 据的形式        
         url: "UserServlet?action=ajouterCommentaire", //把数 据提交到comments.php        
-        data: "nom=" + $("#nom").val() + "&contenu=" + $("#contenu").val() 
+        data: "nom=" + removeScript($("#nom").val()) 
+                + "&contenu=" + removeScript($("#contenu").val()) 
                 + "&IdNews=" + $("#IdNews").val()+"&time=" + $("#time").val(),
-        success: function(msg) {                  //提交成功后的回调   
-            if (msg="ok") {
-                alert("回复 成功(:))！");
+        success: function(msg) {    
+            if (msg==="ok") {
+                alert("Votre commentaire est bon ！");
                 $("#insert")
-                        .append("<b>用户名:</b>"+$("#nom").val() + "<br/>"+
+                        .html("<b>用户名:</b>"+removeScript($("#nom").val()) + "<br/>"+
                         "<b>时间:</b>"+$("#time").val() + "<br/>"
-                        +$("#contenu").val()+"<hr/>");
+                        +removeScript($("#contenu").val()+"<hr/>"));
             } else {
-                alert("回复 失败(:)！ ");
+                alert("Je suis plus fort que toi :P");
             }
         }
     });
