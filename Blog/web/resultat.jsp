@@ -31,7 +31,7 @@
         </header>
 
         <footer>
-            <p class="post-info"> <%=n.getDate()%></p>
+            <p class="post-info"> <i class="icon-time"></i><%=n.getDate()%>
         </footer>
         <p><%=n.getContenu()%></p>
     </article>

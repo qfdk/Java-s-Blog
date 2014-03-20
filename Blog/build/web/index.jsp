@@ -4,5 +4,5 @@
     Author     : qfdk
 --%> 
 <%
-    response.sendRedirect("UserServlet?action=home");
+    response.sendRedirect("UserServlet?action=home&NumPage=1");
 %>

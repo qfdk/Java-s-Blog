@@ -5,7 +5,8 @@
         document.form.contient.value = desc;
     }
 </script>
-
+<% if(estAdmin){
+    %>
 <form method="POST" action="AdminControle?action=ajouter" name="form" onsubmit="loadVal();">
     <div class="mainContent">
         <!--<div class="content">-->	
@@ -83,3 +84,7 @@
     </div>
     
 </form>
+    
+<%}else{
+    response.sendRedirect("/Blog/admin/");
+}%>

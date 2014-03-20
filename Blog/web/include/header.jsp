@@ -49,9 +49,9 @@
                     <%
                         if (actionString.equals("listerNews")) {
                     %>
-                    <li class="active" ><a href="UserServlet?action=listerNews">News</a></li>
+                    <li class="active" ><a href="UserServlet?action=listerNews&NumPage=1">News</a></li>
                         <%} else {%>
-                    <li><a href="UserServlet?action=listerNews">News</a></li>
+                    <li><a href="UserServlet?action=listerNews&NumPage=1">News</a></li>
                         <%
                             }
                         %>
@@ -59,30 +59,28 @@
                     <%
                         if (actionString.equals("listerJava")) {
                     %>
-                    <li class="active"><a href="UserServlet?action=listerJava">Java</a></li>
+                    <li class="active"><a href="UserServlet?action=listerJava&NumPage=1">Java</a></li>
                         <%} else {%>
-                    <li><a href="UserServlet?action=listerJava">Java</a></li>
+                    <li><a href="UserServlet?action=listerJava&NumPage=1">Java</a></li>
                         <%
-                            }
-                        } catch (Exception e) {
-                        %>
-                    <li><a href="UserServlet?action=home">404,Cette page ne trouve pas,cliquez ici :P</a></li>
-                        <%
+                                }
+                            } catch (Exception e) {
+                                response.sendRedirect("/Blog");
                             }
                         %>
+                    <li> <a href="" onClick="location.reload();">Recharger</a></li>
                         <%if (estAdmin) {
                         %>
                     <li><a href="AdminControle?action=admin">Admin</a></li>
-                        <%} else {%>
-                    <li><a href="UserServlet?action=aubout">About</a></li>
-                        <%
-            }%>
-               
+                        <%}%>
+                    <li> 
+                        <form class="navbar-form pull-right" method="POST" action="UserServlet?action=rechercher">
+                            <input type="text" name="motcle" class="span2">
+                            <input type="submit" class="btn" value="Recherche" />
+                        </form>
+                    </li>
                 </ul>
-    <form class="navbar-form pull-left" method="POST" action="UserServlet?action=rechercher">
-    <input type="text" name="motcle" class="span2">
-    <input type="submit" class="btn" value="Recherche" />
-    </form>
             </nav>
+
         </header>
         <div class="mainContent">

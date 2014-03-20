@@ -10,8 +10,14 @@
 <%@include file="include/header.jsp" %>
 
 <div class="content">	
-    <%
+    <%       
         List<News> arrayList = (List<News>) request.getAttribute("java");
+        List<News> allNewses = (List<News>) request.getAttribute("all");
+        Integer nbpageInteger = Integer.parseInt(request.getParameter("NumPage"));
+        int maxI = allNewses.size() / Config.NB_NEWS_MAX + 1;
+        if (maxI <= 2) {
+            maxI = 1;
+        }
         for (News n : arrayList) {
     %>
 
@@ -21,15 +27,34 @@
         </header>
 
         <footer>
-            <p class="post-info"> <%=n.getDate()%></p>
+            <p class="post-info"> <i class="icon-time"></i><%=n.getDate()%>
+
+            </p>
         </footer>
-            <p><%=n.getContenu()%></p>
+        <p><%=n.getContenu()%></p>
+
+        <a href="UserServlet?action=details&IdNews=<%=n.getIdNews()%>"><span class="label">More...</span></a>
     </article>
 
     <%
-            }%>
+        }%>
+    <ul class="pager">
+        <li><a href="UserServlet?action=listerJava&NumPage=<%=nbpageInteger - 1%>">Previous</a></li>
+            <%
+                if (nbpageInteger >= maxI) {
+            %>
+        <li><a href="UserServlet?action=listerJava&NumPage=<%=maxI%>">Next</a></li>
+            <%
+            } else {%>
+        <li><a href="UserServlet?action=listerJava&NumPage=<%=nbpageInteger + 1%>">Next</a></li>
+            <%
+                }
 
-    </div>
-        
+            %>
+
+
+    </ul>
+</div>
+
 <%@include  file="include/tools.jsp" %>
 <%@include  file="include/footer.jsp" %>

@@ -19,11 +19,13 @@ function postdata() {           //提交数据函数
                 + "&contenu=" + removeScript($("#contenu").val()) 
                 + "&IdNews=" + $("#IdNews").val()+"&time=" + $("#time").val(),
         success: function(msg) {    
+            var urlimg="http://www.gravatar.com/avatar/"+$.md5(removeScript($("#nom").val()))+"?s=40";
             if (msg==="ok") {
                 alert("Votre commentaire est bon ！");
                 $("#insert")
-                        .html("<b>用户名:</b>"+removeScript($("#nom").val()) + "<br/>"+
-                        "<b>时间:</b>"+$("#time").val() + "<br/>"
+                        .html("<b>Pseudo:</b>"+removeScript($("#nom").val()) + "<br/>"+
+                        "<b>Time:</b>"+$("#time").val().substring(4,16) + "<br/>"
+                        +"<img src='"+urlimg+"'/>"
                         +removeScript($("#contenu").val()+"<hr/>"));
             } else {
                 alert("Je suis plus fort que toi :P");
@@ -31,4 +33,3 @@ function postdata() {           //提交数据函数
         }
     });
 }
-

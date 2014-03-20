@@ -4,16 +4,21 @@
     Author     : qfdk
 --%>
 
+<%@page import="control.MD5Util"%>
 <%@page import="java.util.Date"%>
 <%@page import="entites.Commentaire"%>
 <%@page import="java.util.List"%>
 <%@page import="entites.News"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp" %>
+<script language="JavaScript" type="text/javascript" src="js/jquery.md5.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/ajax.js"></script>
 <div class="content">	
-    <%
+    <%   
         News n = (News) request.getAttribute("details");
+        String nomString = (String) session.getAttribute("client");
+        if(nomString==null)
+            nomString="";
         List<Commentaire> commentaires = (List<Commentaire>) request.getAttribute("commentaires");
     %>
 
@@ -21,10 +26,10 @@
         <header>
             <h2><a href="UserServlet?action=details&IdNews=<%=n.getIdNews()%>" rel="bookmark" title="Permalink to this POST TITLE"><%=n.getTitre()%></a></h2>
         </header>
-        <span class="label label-info"><i class="icon-time"></i><%= n.getDate()%></span>
-        <span class="label label-success"><i class="icon-user"></i><%= commentaires.size()%></span>
         <footer>
-            <p class="post-info"> <%=n.getDate()%></p>
+            <p class="post-info"> <i class="icon-time"></i><%=n.getDate()%>
+                <span class="label label-success"><i class="icon-user"></i><%= commentaires.size()%></span>
+            </p>
         </footer>
         <p><%=n.getContenu()%></p>
     </article>
@@ -41,15 +46,17 @@
         <%
             for (Commentaire c : commentaires) {
         %>
-        <b>用户名:</b><%=c.getNom()%><br/>
-        <b>时间:</b><%=c.getDateCommentaire()%><br/>
-        <%=c.getContenu()%><br/>
+        <b>Pseudo:</b><%=c.getNom()%><br/>
+        <b>Time:</b><%=c.getDateCommentaire().toString().substring(4, 16)%><br/>
+        <img src="http://www.gravatar.com/avatar/<%=MD5Util.md5Hex(c.getNom())%>?s=40"/> <%=c.getContenu()%><br/>
         <% if (estAdmin) {%>
-        <a class="btn btn-small btn-danger" href="AdminControle?action=supprimerCommentaire&idCommentaire=<%=c.getIdCommentaire()%>&IdNews=<%=n.getIdNews()%>">Supprimer</a><br/>
-        <%
-            }%>
+        <a href="AdminControle?action=supprimerCommentaire&idCommentaire=<%=c.getIdCommentaire()%>&IdNews=<%=n.getIdNews()%>">
+            <span class="label label-important"><i class="icon-trash"></i> Supprimer</span></a>
+            <%   }
+            %>
         <hr/>
-        <%   }
+        <%
+                }
             }
         %>
         <p id="insert"></p>
@@ -59,11 +66,11 @@
         <!--<form method="POST" action="UserServlet?action=ajouterCommentaire">-->
         <table width="600" border="0" align="center" cellpadding="3" cellspacing="1">  
             <tr>  
-                <td width="50">用户名 </td>  
-                <td><input name="nom" type="text" id="nom" /></td>  
+                <td width="50">Pseudo: </td>  
+                <td><input name="nom" type="text" id="nom" value="<%=nomString%>"/></td>  
             </tr>  
             <tr>  
-                <td>内容</td>  
+                <td>Content: </td>  
                 <td><textarea name="contenu" id="contenu"></textarea></td>  
             </tr>
             <input id="IdNews" name="IdNews" value="<%=n.getIdNews()%>" hidden="true"/>
